@@ -1,80 +1,57 @@
-import React, { useState } from 'react';
+
+import React, { Component } from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    Button,
-    View,
-    TextInput,
-
-
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  StatusBar,
+  TextInput,
+  Image,
+  Dimensions,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 
-import ShoppingCart from './components/ShoppingCart';
-import FlatButton from "./components/button";
-
+import { Input, Button } from "./components"
 
 
 const App = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
+  // const [value, onChangeText] = React.useState('Useless Placeholder');
 
-
-    const resetForm = () => {
-        setEmail("");
-        setPassword("");
-    }
-
-    return (
-        <View style={styles.body}>
-            <ShoppingCart />
-            <TextInput
-                style={styles.form}
-                keyboardType="email-address"
-                placeholder="Please enter your e-mail"
-                defaultValue={email}
-                onChangeText={text => setEmail(text)}
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#80CBC4" }} >
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS == "android" ? null : "padding"}
+      >
+        <ScrollView style={{ flex: 1 }} bounces={false} >
+          <View style={{ flex: 1 }}>
+            <Image
+              style={styles.logo}
+              source={require('./images/shopping_cart.png')}
             />
 
-            <TextInput
-                secureTextEntry
-                style={styles.form}
-                placeholder="Password"
-                onChangeText={text => setPassword(text)}
-                defaultValue={password}
-                autoCorrect={false} />
-            <FlatButton text="Login" onPress={resetForm} />
-            <FlatButton text="Register" onPress={resetForm} />
-        </View>
-    );
-};
+            <Input holder="E-posta giriniz..." />
+            <Input holder="Şifre giriniz..." />
+
+            <Button text="Giriş Yap" />
+            <Button text="Kayıt Ol" />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  )
+}
+
 const styles = StyleSheet.create({
-    body: {
-        backgroundColor: "#80CBC4",
-        display: "flex",
-        height: 1000,
-
-    },
-    form: {
-        borderColor: "white",
-        borderWidth: 1,
-        borderRadius: 10,
-        height: 60,
-        backgroundColor: "white",
-        fontSize: 20,
-        padding: 20,
-        margin: 10,
-
-
-    },
-    buttons: {
-        marginLeft: 100,
-        marginRight: 100,
-        marginBottom: 10,
-        backgroundColor: "#546E7A",
-
-    }
+  logo: {
+    resizeMode: "contain",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height * 0.35,
+  },
 });
 
-export default App; 
+export default App;
